@@ -57,3 +57,33 @@ Console.WriteLine($"SINGLE OR DEFAULT TEST 1: {r8}");
 
 var r9 = products.Where(p => p.Id == 30).SingleOrDefault();
 Console.WriteLine($"SINGLE OR DEFAULT TEST 2: {r9}");
+
+var r10 = products.Max(p => p.Price);
+Console.WriteLine($"MAX PRICE: {r10}");
+
+var r11 = products.Min(p => p.Price);
+Console.WriteLine($"MIN PRICE: {r11}");
+
+var r12 = products.Where(p => p.Category.Id == 1).Sum(p => p.Price);
+Console.WriteLine($"CATEGORY 1 SUM PRICES: {r12}");
+
+var r13 = products.Where(p => p.Category.Id == 1).Average(p => p.Price);
+Console.WriteLine($"CATEGORY 1 AVERAGE PRICES: {r13}");
+
+var r14 = products.Where(p => p.Category.Id == 5).Select(p => p.Price).DefaultIfEmpty(0.0).Average();
+Console.WriteLine($"CATEGORY 5 AVERAGE PRICES: {r14}");
+
+var r15 = products.Where(p => p.Category.Id == 1).Select(p => p.Price).Aggregate(0.0, (x, y) => x + y);
+Console.WriteLine($"CATEGORY 1 AGGREGATE SUM: {r15}");
+Console.WriteLine();
+
+var r16 = products.GroupBy(p => p.Category);
+foreach (var item in r16)
+{
+    Console.WriteLine($"Category {item.Key.Name}: ");
+    foreach (var p in item)
+    {
+        Console.WriteLine(p);
+    }
+    Console.WriteLine();
+}
